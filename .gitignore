@@ -1,0 +1,6 @@
+.vs
+obj
+bin
+/ImagePuzzler/*.user
+/ImagePuzzler.Example/*.user
+/ImagePuzzler.Example/Properties/PublishProfiles/*.user

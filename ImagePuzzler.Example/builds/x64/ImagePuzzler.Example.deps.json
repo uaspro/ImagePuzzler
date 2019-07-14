@@ -1,0 +1,89 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.2/win-x64",
+    "signature": "44beae17b3c5a3c2e465741acedc795df8af4f47"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.2": {},
+    ".NETCoreApp,Version=v2.2/win-x64": {
+      "ImagePuzzler.Example/1.0.0": {
+        "dependencies": {
+          "ImagePuzzler": "1.0.0"
+        },
+        "runtime": {
+          "ImagePuzzler.Example.dll": {}
+        }
+      },
+      "Microsoft.Win32.SystemEvents/4.5.0": {
+        "runtime": {
+          "runtimes/win/lib/netcoreapp2.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        }
+      },
+      "Svg/2.4.3": {
+        "runtime": {
+          "lib/Svg.dll": {
+            "assemblyVersion": "2.4.3.29446",
+            "fileVersion": "2.4.3.29446"
+          }
+        }
+      },
+      "System.Drawing.Common/4.5.1": {
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "4.5.0"
+        },
+        "runtime": {
+          "runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "4.0.0.1",
+            "fileVersion": "4.6.26919.2"
+          }
+        }
+      },
+      "ImagePuzzler/1.0.0": {
+        "dependencies": {
+          "Svg": "2.4.3",
+          "System.Drawing.Common": "4.5.1"
+        },
+        "runtime": {
+          "ImagePuzzler.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ImagePuzzler.Example/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Win32.SystemEvents/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LuI1oG+24TUj1ZRQQjM5Ew73BKnZE5NZ/7eAdh1o8ST5dPhUnJvIkiIn2re3MwnkRy6ELRnvEbBxHP8uALKhJw==",
+      "path": "microsoft.win32.systemevents/4.5.0",
+      "hashPath": "microsoft.win32.systemevents.4.5.0.nupkg.sha512"
+    },
+    "Svg/2.4.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5HuSl7iaYbMZG9lnuGHnJ+hgiy6stmiRgVYdwAdyPVAdeDG9P5is2K0UT9kM6mKOnhHDjXRok85nx5DNKRgZEg==",
+      "path": "svg/2.4.3",
+      "hashPath": "svg.2.4.3.nupkg.sha512"
+    },
+    "System.Drawing.Common/4.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GiyeGi/v4xYDz1vCNFwFvhz9k1XddOG7VD3jxRqzRBCbTHji+s3HxxbxtoymuK4OadEpgotI8zQ5+GEEH9sUEQ==",
+      "path": "system.drawing.common/4.5.1",
+      "hashPath": "system.drawing.common.4.5.1.nupkg.sha512"
+    },
+    "ImagePuzzler/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
