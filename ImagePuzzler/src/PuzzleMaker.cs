@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ImagePuzzler
 {
-    public static class ImagePuzzler
+    public static class PuzzleMaker
     {
         private static Random Random = new Random();
 
@@ -86,12 +86,14 @@ namespace ImagePuzzler
                                 PuzzlePiece.PuzzleSideType.Left,
                                 new PuzzleSide(
                                     leftPuzzlePiece,
+                                    (i - 1, j),
                                     puzzleConnectorType));
 
                             leftPuzzlePiece.AddUpdatePuzzleSide(
                                 PuzzlePiece.PuzzleSideType.Right,
                                 new PuzzleSide(
                                     puzzlePiece,
+                                    (i, j),
                                     puzzleConnectorType == PuzzleSide.PuzzleConnectorType.Inbound
                                         ? PuzzleSide.PuzzleConnectorType.Outbound
                                         : PuzzleSide.PuzzleConnectorType.Inbound));
@@ -108,12 +110,14 @@ namespace ImagePuzzler
                                 PuzzlePiece.PuzzleSideType.Top,
                                 new PuzzleSide(
                                     topPuzzlePiece,
+                                    (i, j - 1),
                                     puzzleConnectorType));
 
                             topPuzzlePiece.AddUpdatePuzzleSide(
                                 PuzzlePiece.PuzzleSideType.Bottom,
                                 new PuzzleSide(
                                     puzzlePiece,
+                                    (i, j),
                                     puzzleConnectorType == PuzzleSide.PuzzleConnectorType.Inbound
                                         ? PuzzleSide.PuzzleConnectorType.Outbound
                                         : PuzzleSide.PuzzleConnectorType.Inbound));
