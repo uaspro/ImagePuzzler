@@ -21,16 +21,23 @@ namespace ImagePuzzler
             DefaultConnectorScale = scale;
         }
 
-        public static PuzzlePiece[][] MakePuzzle(this Bitmap inputImageRaw, int xSplitCount, int ySplitCount)
+        public static Puzzle MakePuzzle(this Bitmap inputImageRaw, int xSplitCount, int ySplitCount)
         {
-            var result = new PuzzlePiece[xSplitCount][];
-            for (var i = 0; i < result.Length; i++)
+            var result = new Puzzle
             {
-                result[i] = new PuzzlePiece[ySplitCount];
+                PuzzlePieces = new PuzzlePiece[xSplitCount][]
+            };
+
+            for (var i = 0; i < result.PuzzlePieces.Length; i++)
+            {
+                result.PuzzlePieces[i] = new PuzzlePiece[ySplitCount];
             }
 
             var puzzlePieceWidth = (int)Math.Floor(inputImageRaw.Width / (decimal)xSplitCount);
             var puzzlePieceHeight = (int)Math.Floor(inputImageRaw.Height / (decimal)ySplitCount);
+            result.XSplitCount = xSplitCount;
+            result.YSplitCount = ySplitCount;
+
             var puzzlePieceRect = new Rectangle(0, 0, puzzlePieceWidth, puzzlePieceHeight);
 
             var largerSideSize = puzzlePieceWidth > puzzlePieceHeight ? puzzlePieceWidth : puzzlePieceHeight;
@@ -42,9 +49,11 @@ namespace ImagePuzzler
 
                 var inputImageRect = new Rectangle(0, 0, xSplitCount * puzzlePieceRect.Width, ySplitCount * puzzlePieceRect.Height);
                 var inputImage = inputImageRaw.Clone(inputImageRect, PixelFormat.Format32bppArgb);
-                for (var j = 0; j < ySplitCount; j++)
+                result.Image = inputImage;
+
+                for (var i = 0; i < xSplitCount; i++)
                 {
-                    for (var i = 0; i < xSplitCount; i++)
+                    for (var j = 0; j < ySplitCount; j++)
                     {
                         var slicePuzzlePieceRect =
                             new Rectangle(i * puzzlePieceRect.Width, j * puzzlePieceRect.Height, puzzlePieceRect.Width, puzzlePieceRect.Height);
@@ -66,22 +75,22 @@ namespace ImagePuzzler
                             slicePuzzlePieceRect.Height);
 
                         var puzzlePiece = new PuzzlePiece(puzzlePieceBitmap, puzzleConnectorMask);
-                        result[i][j] = puzzlePiece;
+                        result.PuzzlePieces[i][j] = puzzlePiece;
                     }
                 }
 
-                Parallel.For(0, ySplitCount, j =>
+                Parallel.For(0, xSplitCount, i =>
                 {
-                    for (var i = 0; i < xSplitCount; i++)
+                    for (var j = 0; j < ySplitCount; j++)
                     {
-                        var puzzlePiece = result[i][j];
+                        var puzzlePiece = result.PuzzlePieces[i][j];
                         if (i != 0)
                         {
                             var puzzleConnectorType = Random.Next(2) > 0
                                 ? PuzzleSide.PuzzleConnectorType.Inbound
                                 : PuzzleSide.PuzzleConnectorType.Outbound;
 
-                            var leftPuzzlePiece = result[i - 1][j];
+                            var leftPuzzlePiece = result.PuzzlePieces[i - 1][j];
                             puzzlePiece.AddUpdatePuzzleSide(
                                 PuzzlePiece.PuzzleSideType.Left,
                                 new PuzzleSide(
@@ -105,7 +114,7 @@ namespace ImagePuzzler
                                 ? PuzzleSide.PuzzleConnectorType.Inbound
                                 : PuzzleSide.PuzzleConnectorType.Outbound;
 
-                            var topPuzzlePiece = result[i][j - 1];
+                            var topPuzzlePiece = result.PuzzlePieces[i][j - 1];
                             puzzlePiece.AddUpdatePuzzleSide(
                                 PuzzlePiece.PuzzleSideType.Top,
                                 new PuzzleSide(

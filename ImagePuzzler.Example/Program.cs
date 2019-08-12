@@ -37,7 +37,7 @@ namespace ImagePuzzler.Example
             }
 
             var stopWatch = Stopwatch.StartNew();
-            var puzzlePieces = inputImageRaw.MakePuzzle(xSplitCount, ySplitCount);
+            var puzzle = inputImageRaw.MakePuzzle(xSplitCount, ySplitCount);
             Console.WriteLine($"Puzzle algorithm duration: {stopWatch.Elapsed}");
 
             if (!Directory.Exists(ResultsPath))
@@ -58,14 +58,14 @@ namespace ImagePuzzler.Example
             });
 
             Console.WriteLine("Saving results...");
-            Parallel.For(0, puzzlePieces.Length, i =>
+            Parallel.For(0, puzzle.XSplitCount, i =>
             {
-                var column = puzzlePieces[i];
+                var column = puzzle.PuzzlePieces[i];
                 for (var j = 0; j < column.Length; j++)
                 {
-                    var puzzlePiece = puzzlePieces[i][j];
+                    var puzzlePiece = puzzle.PuzzlePieces[i][j];
                     puzzlePiece.Image.Save(
-                        Path.Combine(currentResultsPath, $"{j * puzzlePieces.Length + i + 1}.png"),
+                        Path.Combine(currentResultsPath, $"{j * puzzle.PuzzlePieces.Length + i + 1}.png"),
                         ImageFormat.Png);
                 }
             });

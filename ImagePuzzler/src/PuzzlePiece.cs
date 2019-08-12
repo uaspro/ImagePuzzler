@@ -1,20 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 
 namespace ImagePuzzler
 {
     public class PuzzlePiece
     {
-        private Dictionary<PuzzleSideType, PuzzleSide> _puzzleSides = new Dictionary<PuzzleSideType, PuzzleSide>();
-
         private readonly PuzzleConnectorMask _puzzleConnectorMask;
 
         public Bitmap Image { get; }
 
         public Rectangle ImageRect { get; }
 
-        public IReadOnlyDictionary<PuzzleSideType, PuzzleSide> PuzzleSides => _puzzleSides;
+        public PuzzleSide[] PuzzleSides { get; } = new PuzzleSide[4];
 
         internal PuzzlePiece(Bitmap image, PuzzleConnectorMask puzzleConnectorMask)
         {
@@ -26,12 +23,7 @@ namespace ImagePuzzler
 
         internal void AddUpdatePuzzleSide(PuzzleSideType puzzleSideType, PuzzleSide puzzleSide)
         {
-            if (!_puzzleSides.ContainsKey(puzzleSideType))
-            {
-                _puzzleSides.Add(puzzleSideType, null);
-            }
-
-            _puzzleSides[puzzleSideType] = puzzleSide;
+            PuzzleSides[(int) puzzleSideType] = puzzleSide;
 
             var targetExtract = puzzleSide.ConnectorType == PuzzleSide.PuzzleConnectorType.Inbound
                 ? Image
